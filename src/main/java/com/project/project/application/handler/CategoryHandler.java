@@ -11,6 +11,8 @@ public interface CategoryHandler {
 
     List<categoryDto> getAllCategories();
 
+    List<categoryResponse> getParameterizedCategories(int page, int size, String orden);
+
 
 
 }

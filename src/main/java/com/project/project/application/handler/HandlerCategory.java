@@ -7,8 +7,6 @@ import com.project.project.application.mapper.categoryResponseMapper;
 import com.project.project.domain.api.categoryServicePort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.project.project.domain.model.category;
 
@@ -25,7 +23,6 @@ public class HandlerCategory implements CategoryHandler {
     private final categoryResponseMapper categoryResponseMapper;
 
 
-
     @Override
     public void saveCategory(categoryDto categoryDto) {
 
@@ -39,4 +36,11 @@ public class HandlerCategory implements CategoryHandler {
     public List<categoryDto> getAllCategories() {
         return List.of();
     }
+
+    @Override
+    public List<categoryResponse> getParameterizedCategories(int page, int size, String orden) {
+        return categoryMapper.toResponseList(categoryServicePort.getParameterizedCategories(page,size,orden));
+    }
+
+
 }

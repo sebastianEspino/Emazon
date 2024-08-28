@@ -3,13 +3,11 @@ package com.project.project.infrastucture.input.rest;
 import com.project.project.application.dto.categoryDto;
 import com.project.project.application.dto.categoryResponse;
 import com.project.project.application.handler.CategoryHandler;
-import com.project.project.application.mapper.categoryMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -28,6 +26,16 @@ public class CategoryController {
     }
 
     // hu-1
+
+    @GetMapping("/")
+    public  ResponseEntity<List<categoryResponse>> getParameterizedCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String orden
+    ){
+        return ResponseEntity.ok(categoryHandler.getParameterizedCategories(page, size, orden));
+
+    }
 
 
 }
