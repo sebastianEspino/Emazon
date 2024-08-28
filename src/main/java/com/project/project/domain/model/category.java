@@ -1,5 +1,8 @@
 package com.project.project.domain.model;
 
+
+import jdk.jshell.Snippet;
+
 public class category {
 
 
@@ -12,6 +15,8 @@ public class category {
         this.name = name;
         this.description = description;
     }
+
+
 
     public Long getId() {
         return id;

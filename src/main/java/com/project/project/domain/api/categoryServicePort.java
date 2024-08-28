@@ -14,4 +14,7 @@ public interface categoryServicePort {
     void updateCategory(category category);
 
     void deleteCategory(Long idCategory);
+
+    List<category> getParameterizedCategories(int page, int size, String orden);
+
 }

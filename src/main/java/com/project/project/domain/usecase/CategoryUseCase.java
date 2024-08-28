@@ -5,6 +5,7 @@ import com.project.project.domain.spi.categoryPersistencePort;
 import com.project.project.infrastucture.exception.NameCategoryNotBlankException;
 import com.project.project.infrastucture.exception.ValidCategoryDescription;
 
+
 import java.util.List;
 
 public class CategoryUseCase implements categoryServicePort {
@@ -18,7 +19,7 @@ public class CategoryUseCase implements categoryServicePort {
 
     private void validCategoryName(String name){
         if(name == null || name.trim().isEmpty() || name.length() > 50){
-            throw new NameCategoryNotBlankException();
+            throw new NameCategoryNotBlankException("Category name must not be blank.");
         }
     }
 
@@ -29,13 +30,20 @@ public class CategoryUseCase implements categoryServicePort {
         }
     }
 
-
-
-
     @Override
     public void saveCategory(category category) {
-        this.categoryPersistencePort.saveCategory(category);
+        
+        validCategoryName(category.getName());
+        validCategoryDescription(category.getDescription());
+
+        categoryPersistencePort.saveCategory(category);
+
+
     }
+
+
+
+
 
     @Override
     public List<category> getAllCategories() {
@@ -55,6 +63,11 @@ public class CategoryUseCase implements categoryServicePort {
     @Override
     public void deleteCategory(Long idCategory) {
 
+    }
+
+    @Override
+    public List<category> getParameterizedCategories(int page, int size, String orden) {
+        return List.of();
     }
 
 

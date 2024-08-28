@@ -39,4 +39,9 @@ public class HandlerCategory implements CategoryHandler {
     public List<categoryDto> getAllCategories() {
         return List.of();
     }
+
+    @Override
+    public List<categoryDto> getParameterizedCategories(int page, int size, String orden) {
+        return List.of();
+    }
 }
