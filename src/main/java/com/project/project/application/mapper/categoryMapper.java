@@ -20,6 +20,7 @@ public interface categoryMapper {
         return categoryList.stream()
                 .map(category -> {
                     categoryResponse categoryResponseDto = new categoryResponse();
+                    categoryResponseDto.setId(category.getId());
                     categoryResponseDto.setName(category.getName());
                     categoryResponseDto.setDescription(category.getDescription());
                     return categoryResponseDto;
