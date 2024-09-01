@@ -7,6 +7,12 @@ import com.project.project.infrastucture.output.jpa.entity.categoryEntity;
 import com.project.project.infrastucture.output.jpa.mapper.BrandEntityMapper;
 import com.project.project.infrastucture.output.jpa.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class BrandJpaAdapter implements BrandPersistencePort {
@@ -20,5 +26,13 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         BrandEntity brandEntity = brandEntityMapper.toBrandEntity(brand);
         brandRepository.save(brandEntity);
 
+    }
+
+    @Override
+    public List<Brand> getParameterizedCategories(int page, int size, String orden) {
+        Sort sort = Sort.by(Sort.Direction.fromString(orden),"name");
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<BrandEntity> BrandyEntiyPage = brandRepository.findAll(pageable);
+        return brandEntityMapper.toBrandList(BrandyEntiyPage.getContent());
     }
 }
