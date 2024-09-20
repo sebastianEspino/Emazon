@@ -1,5 +1,6 @@
 package com.project.project.infrastucture.output.jpa.adapter;
 
+import com.project.project.domain.model.PageResponse;
 import com.project.project.domain.model.category;
 import com.project.project.domain.spi.categoryPersistencePort;
 import com.project.project.infrastucture.output.jpa.entity.categoryEntity;
@@ -30,12 +31,24 @@ public class CategoryJpaAdapter implements categoryPersistencePort {
     }
 
     @Override
-    public List<category> getParameterizedCategories(int page, int size, String orden) {
+    public PageResponse<category> getParameterizedCategories(int page, int size, String orden) {
         Sort sort = Sort.by(Sort.Direction.fromString(orden),"name");
+
         Pageable pageable = PageRequest.of(page,size,sort);
+
         Page<categoryEntity> categoryEntiyPage = categoryRepository.findAll(pageable);
-        return categoryEntityMapper.toCategoryList(categoryEntiyPage.getContent());
+
+        List<category> categoryList = categoryEntityMapper.toCategoryList(categoryEntiyPage.getContent());
+
+
+        return new PageResponse<>(categoryList,
+                categoryEntiyPage.getNumber(),
+                categoryEntiyPage.getSize(),
+                categoryEntiyPage.getTotalElements(),
+                categoryEntiyPage.getTotalPages(),
+                orden);
     }
+
 
     @Override
     public List<category> getAllCategories() {

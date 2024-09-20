@@ -5,6 +5,7 @@ import com.project.project.application.dto.categoryResponse;
 import com.project.project.application.mapper.categoryMapper;
 import com.project.project.application.mapper.categoryResponseMapper;
 import com.project.project.domain.api.categoryServicePort;
+import com.project.project.domain.model.PageResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class HandlerCategory implements CategoryHandler {
 
     private final categoryServicePort categoryServicePort;
     private final categoryMapper categoryMapper;
-    private final categoryResponseMapper categoryResponseMapper;
+
 
 
     @Override
@@ -38,8 +39,11 @@ public class HandlerCategory implements CategoryHandler {
     }
 
     @Override
-    public List<categoryResponse> getParameterizedCategories(int page, int size, String orden) {
-        return categoryMapper.toResponseList(categoryServicePort.getParameterizedCategories(page,size,orden));
+    public PageResponse<categoryResponse> getParameterizedCategories(int page, int size, String orden) {
+        PageResponse<category> pageCustom = categoryServicePort.getParameterizedCategories(page, size, orden);
+        List<categoryResponse> responseDtos = categoryMapper.toResponseList(pageCustom.getContent());
+        return new PageResponse<>(responseDtos,pageCustom.getPage(), pageCustom.getSize(),pageCustom.getTotalElements(),pageCustom.getTotalPages(),pageCustom.getOrden());
+
     }
 
 

@@ -2,6 +2,7 @@ package com.project.project.application.handler;
 
 import com.project.project.application.dto.categoryDto;
 import com.project.project.application.dto.categoryResponse;
+import com.project.project.domain.model.PageResponse;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface CategoryHandler {
 
     List<categoryDto> getAllCategories();
 
-    List<categoryResponse> getParameterizedCategories(int page, int size, String orden);
+    PageResponse<categoryResponse> getParameterizedCategories(int page, int size, String orden);
 
 
 

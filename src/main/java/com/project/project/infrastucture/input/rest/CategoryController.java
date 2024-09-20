@@ -3,6 +3,7 @@ package com.project.project.infrastucture.input.rest;
 import com.project.project.application.dto.categoryDto;
 import com.project.project.application.dto.categoryResponse;
 import com.project.project.application.handler.CategoryHandler;
+import com.project.project.domain.model.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,10 +29,10 @@ public class CategoryController {
     // hu-1
 
     @GetMapping("/")
-    public  ResponseEntity<List<categoryResponse>> getParameterizedCategories(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "asc") String orden
+    public  ResponseEntity<PageResponse<categoryResponse>> getParameterizedCategories(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String orden
     ){
         return ResponseEntity.ok(categoryHandler.getParameterizedCategories(page, size, orden));
 

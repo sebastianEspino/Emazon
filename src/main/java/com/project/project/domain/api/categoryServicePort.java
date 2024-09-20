@@ -1,4 +1,5 @@
 package com.project.project.domain.api;
+import com.project.project.domain.model.PageResponse;
 import com.project.project.domain.model.category;
 import java.util.List;
 
@@ -6,7 +7,7 @@ import java.util.List;
 public interface categoryServicePort {
 
     void saveCategory(category category);
-    List<category> getParameterizedCategories(int page, int size, String orden);
+    PageResponse<category> getParameterizedCategories(int page, int size, String orden);
 
     List<category> getAllCategories();
 

@@ -1,5 +1,6 @@
 package com.project.project.domain.usecase;
 import com.project.project.domain.api.categoryServicePort;
+import com.project.project.domain.model.PageResponse;
 import com.project.project.domain.model.category;
 import com.project.project.domain.spi.categoryPersistencePort;
 import com.project.project.infrastucture.exception.NameCategoryNotBlankException;
@@ -38,7 +39,7 @@ public class CategoryUseCase implements categoryServicePort {
     }
 
     @Override
-    public List<category> getParameterizedCategories(int page, int size, String orden) {
+    public PageResponse<category> getParameterizedCategories(int page, int size, String orden) {
         return categoryPersistencePort.getParameterizedCategories(page, size, orden);
     }
 
