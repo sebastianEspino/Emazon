@@ -38,6 +38,11 @@ public class CategoryUseCase implements categoryServicePort {
     }
 
     @Override
+    public List<category> getParameterizedCategories(int page, int size, String orden) {
+        return categoryPersistencePort.getParameterizedCategories(page, size, orden);
+    }
+
+    @Override
     public List<category> getAllCategories() {
         return List.of();
     }

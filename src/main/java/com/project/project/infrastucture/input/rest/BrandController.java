@@ -1,8 +1,10 @@
 package com.project.project.infrastucture.input.rest;
 
+import com.project.project.application.dto.BrandRequestDto;
+import com.project.project.application.dto.BrandResponseDto;
 import com.project.project.application.dto.categoryDto;
 import com.project.project.application.dto.categoryResponse;
-import com.project.project.application.handler.CategoryHandler;
+import com.project.project.application.handler.BrandHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,33 +13,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/brand")
 @RequiredArgsConstructor
-public class CategoryController {
-
-    private final CategoryHandler categoryHandler;
+public class BrandController {
+    private final BrandHandler brandHandler;
 
     @PostMapping("/")
-    public ResponseEntity<Void> saveCategory(@Valid @RequestBody categoryDto categoryRequest) {
-        categoryHandler.saveCategory(categoryRequest);
+    public ResponseEntity<Void> saveBrand(@Valid @RequestBody BrandRequestDto brandRequestDto) {
+        brandHandler.saveBrand(brandRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    // hu-1
-
     @GetMapping("/")
-    public  ResponseEntity<List<categoryResponse>> getParameterizedCategories(
+    public  ResponseEntity<List<BrandResponseDto>> getParameterizedCategories(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "asc") String orden
     ){
-        return ResponseEntity.ok(categoryHandler.getParameterizedCategories(page, size, orden));
+        return ResponseEntity.ok(brandHandler.getParameterizedCategories(page, size, orden));
 
     }
 
-
 }
-
-
