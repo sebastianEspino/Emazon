@@ -3,15 +3,16 @@ package com.project.project.infrastucture.output.jpa.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "brand")
+@Getter
+@Setter
 public class BrandEntity {
 
     @Id
@@ -26,6 +27,9 @@ public class BrandEntity {
     @Column(nullable = false)
 
     private String description;
+
+    @OneToMany(mappedBy = "brand")
+    private Set<ArticleEntity> article;
 
 
 

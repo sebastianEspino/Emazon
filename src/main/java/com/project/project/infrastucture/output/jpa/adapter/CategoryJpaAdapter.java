@@ -29,6 +29,7 @@ public class CategoryJpaAdapter implements categoryPersistencePort {
 
     }
 
+
     @Override
     public List<category> getParameterizedCategories(int page, int size, String orden) {
         Sort sort = Sort.by(Sort.Direction.fromString(orden),"name");

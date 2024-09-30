@@ -1,15 +1,21 @@
 package com.project.project.infrastucture.configuration;
 
+import com.project.project.domain.api.ArticleServicePort;
 import com.project.project.domain.api.BrandServicePort;
 import com.project.project.domain.api.categoryServicePort;
+import com.project.project.domain.spi.ArticlePersistencePort;
 import com.project.project.domain.spi.BrandPersistencePort;
 import com.project.project.domain.spi.categoryPersistencePort;
+import com.project.project.domain.usecase.ArticleUseCase;
 import com.project.project.domain.usecase.BrandUseCase;
 import com.project.project.domain.usecase.CategoryUseCase;
+import com.project.project.infrastucture.output.jpa.adapter.ArticleJpaAdapter;
 import com.project.project.infrastucture.output.jpa.adapter.BrandJpaAdapter;
 import com.project.project.infrastucture.output.jpa.adapter.CategoryJpaAdapter;
+import com.project.project.infrastucture.output.jpa.mapper.ArticleEntityMapper;
 import com.project.project.infrastucture.output.jpa.mapper.BrandEntityMapper;
 import com.project.project.infrastucture.output.jpa.mapper.CategoryEntityMapper;
+import com.project.project.infrastucture.output.jpa.repository.ArticleRepository;
 import com.project.project.infrastucture.output.jpa.repository.BrandRepository;
 import com.project.project.infrastucture.output.jpa.repository.categoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +31,8 @@ public class BeanConfiguration {
     private final CategoryEntityMapper categoryEntityMapper;
     private final BrandEntityMapper brandEntityMapper;
     private final BrandRepository brandRepository;
+    private final ArticleEntityMapper articleEntityMapper;
+    private final ArticleRepository articleRepository;
 
 
 
@@ -48,5 +56,14 @@ public class BeanConfiguration {
         return new BrandUseCase(brandPersistencePort());
     }
 
+    @Bean
+    public ArticlePersistencePort articlePersistencePort() {
+        return new ArticleJpaAdapter(articleEntityMapper,articleRepository,brandRepository,categoryRepository);
+    }
+
+    @Bean
+    public ArticleServicePort articleServicePort() {
+        return new ArticleUseCase(articlePersistencePort());
+    }
 
 }

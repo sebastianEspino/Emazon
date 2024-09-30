@@ -3,6 +3,7 @@ package com.project.project.infrastucture.output.jpa.mapper;
 import com.project.project.domain.model.category;
 import com.project.project.infrastucture.output.jpa.entity.categoryEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -11,10 +12,7 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface CategoryEntityMapper {
-
     categoryEntity toCategoryEntity(category category);
-
-
     List<category> toCategoryList(List<categoryEntity> categoryList);
 
 }
